@@ -59,6 +59,13 @@ html[data-theme="light"] {
 html[data-theme="dark"] {
   color-scheme: dark;
 }
+input,
+textarea,
+select,
+button {
+  font-family: var(--font-body);
+  color-scheme: inherit;
+}
 body {
   font-family: var(--font-body);
   background: var(--bg);
