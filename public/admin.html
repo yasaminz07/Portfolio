@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Inquiries</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="admin-nav">
+      <div class="admin-nav-inner">
+        <a href="/" class="admin-nav-logo">Admin Panel</a>
+
+        <div class="admin-nav-links">
+          <a href="/">Home</a>
+          <a href="/#contact">Contact</a>
+          <a href="/admin" class="active">Admin</a>
+        </div>
+
+        <div class="admin-nav-right">
+          <button
+            id="themeToggle"
+            class="theme-toggle"
+            type="button"
+            aria-label="Toggle theme"
+          ></button>
+
+          <button
+            id="hamburger"
+            class="hamburger"
+            type="button"
+            aria-label="Open menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="/">Home</a>
+      <a href="/#contact">Contact</a>
+      <a href="/admin" class="active">Admin</a>
+    </div>
+
+    <div class="admin-page">
+      <div class="admin-wrap">
+        <div id="loginSection" class="admin-login-shell">
+          <div class="admin-login-card">
+            <div class="admin-login-badge">🔐</div>
+            <h1>Admin Login</h1>
+            <p>
+              Enter your admin key to access and manage portfolio inquiries.
+            </p>
+
+            <div class="admin-input-wrap">
+              <input
+                type="password"
+                id="adminKey"
+                placeholder="Enter admin key"
+              />
+            </div>
+
+            <div class="admin-login-actions">
+              <button id="loginBtn" class="admin-btn" type="button">
+                Login
+              </button>
+              <a href="/" class="admin-back-home">Back to Home</a>
+            </div>
+          </div>
+        </div>
+
+        <div id="adminSection" class="admin-section is-hidden">
+          <div class="admin-topbar">
+            <div>
+              <h1>Portfolio Inquiries</h1>
+              <p>Track replies and resolved messages in one place.</p>
+            </div>
+
+            <div class="admin-top-actions">
+              <a href="/" class="admin-btn secondary">Home</a>
+              <button id="refreshBtn" class="admin-btn secondary" type="button">
+                Refresh
+              </button>
+              <button
+                id="deleteSelectedBtn"
+                class="admin-btn danger"
+                type="button"
+              >
+                Delete Selected
+              </button>
+              <button id="logoutBtn" class="admin-btn secondary" type="button">
+                Logout
+              </button>
+            </div>
+          </div>
+
+          <div id="inquiriesList" class="admin-inquiries-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="customModal" class="custom-modal hidden">
+      <div class="custom-modal-backdrop"></div>
+
+      <div
+        class="custom-modal-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="customModalTitle"
+        aria-describedby="customModalMessage"
+      >
+        <div id="customModalIcon" class="custom-modal-icon">!</div>
+        <h3 id="customModalTitle" class="custom-modal-title">Notice</h3>
+        <p id="customModalMessage"></p>
+
+        <div class="custom-modal-actions">
+          <button id="modalCancel" class="admin-btn secondary" type="button">
+            Cancel
+          </button>
+          <button id="modalConfirm" class="admin-btn" type="button">OK</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
