@@ -50,13 +50,6 @@
 html {
   scroll-behavior: smooth;
 }
-html {
-  color-scheme: light;
-}
-
-html.dark {
-  color-scheme: dark;
-}
 body {
   font-family: var(--font-body);
   background: var(--bg);
