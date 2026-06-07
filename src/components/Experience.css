@@ -228,4 +228,5 @@
   .experience__item-top { flex-direction: column; gap: 10px; }
   .experience__monogram { width: 44px; height: 44px; font-size: 11px; }
   .experience__float-photos { display: none; }
+  .experience__hover-hint { display: none; }
 }
