@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../../lib/supabase'
+import { useConfirm } from '../hooks/useConfirm'
 
 const EMPTY = { label: '', sublabel: '', period: '', current: false, upcoming: false, semesters: [], sort_order: 0 }
 
@@ -11,6 +12,7 @@ export default function Education() {
   const [semError, setSemError]   = useState('')
   const [saving, setSaving]       = useState(false)
   const [error, setError]         = useState('')
+  const [confirmEl, confirm]      = useConfirm()
 
   const fetch = async () => {
     const { data } = await supabase.from('education').select('*').order('sort_order')
@@ -42,7 +44,8 @@ export default function Education() {
   }
 
   const del = async id => {
-    if (!confirm('Delete this year entry?')) return
+    const ok = await confirm('Delete this year entry?')
+    if (!ok) return
     await supabase.from('education').delete().eq('id', id)
     setRows(prev => prev.filter(r => r.id !== id))
   }
@@ -51,6 +54,7 @@ export default function Education() {
 
   return (
     <div className="admin-page">
+      {confirmEl}
       <div className="admin-page__header">
         <div>
           <h1 className="admin-page__title">Education</h1>

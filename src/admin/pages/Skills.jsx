@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../../lib/supabase'
+import { useConfirm } from '../hooks/useConfirm'
 
 const ICONS = ['IconCode','IconServer','IconDatabase','IconTerminal','IconShield','IconCpu']
 const ACCENTS = ['#5B8FFF','#9B78FF','#38D4F7','#34D399','#F97316','#EC4899']
@@ -12,6 +13,7 @@ export default function Skills() {
   const [itemsText, setItemsText] = useState('')
   const [saving, setSaving]   = useState(false)
   const [error, setError]     = useState('')
+  const [confirmEl, confirm]  = useConfirm()
 
   const fetch = async () => {
     const { data } = await supabase.from('skills').select('*').order('sort_order')
@@ -37,7 +39,8 @@ export default function Skills() {
   }
 
   const del = async id => {
-    if (!confirm('Delete this skill category?')) return
+    const ok = await confirm('Delete this skill category?')
+    if (!ok) return
     await supabase.from('skills').delete().eq('id', id)
     setRows(prev => prev.filter(r => r.id !== id))
   }
@@ -46,6 +49,7 @@ export default function Skills() {
 
   return (
     <div className="admin-page">
+      {confirmEl}
       <div className="admin-page__header">
         <div>
           <h1 className="admin-page__title">Skills</h1>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../../lib/supabase'
+import { useConfirm } from '../hooks/useConfirm'
 
 const ICONS = ['IconLock','IconUserX','IconCloud','IconTerminal','IconKey','IconActivity','IconSearch','IconCode','IconWifi','IconShield']
 const EMPTY = { title: '', issuer: '', date: '', body: '', icon_name: 'IconLock', sort_order: 0 }
@@ -10,6 +11,7 @@ export default function Certificates() {
   const [form, setForm]       = useState(null)
   const [saving, setSaving]   = useState(false)
   const [error, setError]     = useState('')
+  const [confirmEl, confirm]  = useConfirm()
 
   const fetch = async () => {
     const { data } = await supabase.from('certificates').select('*').order('sort_order')
@@ -34,7 +36,8 @@ export default function Certificates() {
   }
 
   const del = async id => {
-    if (!confirm('Delete this certificate?')) return
+    const ok = await confirm('Delete this certificate?')
+    if (!ok) return
     await supabase.from('certificates').delete().eq('id', id)
     setRows(prev => prev.filter(r => r.id !== id))
   }
@@ -43,6 +46,7 @@ export default function Certificates() {
 
   return (
     <div className="admin-page">
+      {confirmEl}
       <div className="admin-page__header">
         <div>
           <h1 className="admin-page__title">Certificates</h1>

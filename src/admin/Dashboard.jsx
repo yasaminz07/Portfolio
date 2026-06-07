@@ -82,21 +82,24 @@ export default function Dashboard() {
           <div className="admin-message-list">
             {messages.map(m => (
               <div key={m.id} className={`admin-message-card ${!m.read ? 'admin-message-card--unread' : ''}`}>
-                <div className="admin-message-card__top">
-                  <div>
-                    <span className="admin-message-card__name">{m.name}</span>
-                    <span className="admin-message-card__email">{m.email}</span>
+                <div className="admin-msg-card-body">
+                  <div className="admin-message-card__top">
+                    <div>
+                      <span className="admin-message-card__name">{m.name}</span>
+                      <a href={`mailto:${m.email}`} className="admin-message-card__email">{m.email}</a>
+                    </div>
+                    <div className="admin-message-card__meta">
+                      <span className="admin-message-card__date">
+                        {new Date(m.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                      </span>
+                      {!m.read && (
+                        <button className="admin-btn admin-btn--xs" onClick={() => markRead(m.id)}>Mark read</button>
+                      )}
+                    </div>
                   </div>
-                  <div className="admin-message-card__meta">
-                    <span className="admin-message-card__date">
-                      {new Date(m.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
-                    </span>
-                    {!m.read && (
-                      <button className="admin-btn admin-btn--xs" onClick={() => markRead(m.id)}>Mark read</button>
-                    )}
-                  </div>
+                  {m.subject && <p className="admin-message-card__subject">Re: {m.subject}</p>}
+                  <p className="admin-message-card__body">{m.message}</p>
                 </div>
-                <p className="admin-message-card__body">{m.message}</p>
               </div>
             ))}
           </div>

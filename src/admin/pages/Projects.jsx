@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../../lib/supabase'
+import { useConfirm } from '../hooks/useConfirm'
 
 const ICONS = ['IconBuilding','IconGlobe','IconCheckSquare','IconGrid','IconPlay','IconLayers','IconCode']
 const CATEGORIES = ['Frontend','Full Stack','Design']
@@ -12,6 +13,7 @@ export default function Projects() {
   const [tagsText, setTagsText] = useState('')
   const [saving, setSaving]   = useState(false)
   const [error, setError]     = useState('')
+  const [confirmEl, confirm]  = useConfirm()
 
   const fetch = async () => {
     const { data } = await supabase.from('projects').select('*').order('sort_order')
@@ -37,7 +39,8 @@ export default function Projects() {
   }
 
   const del = async id => {
-    if (!confirm('Delete this project?')) return
+    const ok = await confirm('Delete this project?')
+    if (!ok) return
     await supabase.from('projects').delete().eq('id', id)
     setRows(prev => prev.filter(r => r.id !== id))
   }
@@ -46,6 +49,7 @@ export default function Projects() {
 
   return (
     <div className="admin-page">
+      {confirmEl}
       <div className="admin-page__header">
         <div>
           <h1 className="admin-page__title">Projects</h1>

@@ -687,6 +687,70 @@
 
 .admin-login__form { text-align: left; }
 
+/* ── Custom confirm modal ───────────────────────────────────── */
+.admin-confirm-modal {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px 24px 20px;
+  width: 100%;
+  max-width: 320px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
+  border: 1px solid #ebebeb;
+  animation: confirmSlideIn 0.15s ease;
+}
+
+@keyframes confirmSlideIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.admin-confirm-modal__title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0D0D0D;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+
+.admin-confirm-modal__message {
+  font-size: 13px;
+  color: #999;
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+
+.admin-confirm-modal__actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.admin-confirm-modal__cancel {
+  padding: 7px 16px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  color: #555;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.admin-confirm-modal__cancel:hover { background: #f5f5f3; }
+
+.admin-confirm-modal__ok {
+  padding: 7px 16px;
+  border-radius: 8px;
+  border: none;
+  background: #dc2626;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.admin-confirm-modal__ok:hover { background: #b91c1c; }
+
 /* ── Per-message action buttons ─────────────────────────────── */
 .admin-msg-actions {
   display: flex;

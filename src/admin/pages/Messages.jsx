@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../../lib/supabase'
+import { useConfirm } from '../hooks/useConfirm'
 
 const FILTERS = ['All', 'Starred', 'Unread', 'Responded', 'Ignored']
 
@@ -16,6 +17,7 @@ export default function Messages() {
   const [selected, setSelected] = useState(new Set())
   const [noteOpen, setNoteOpen] = useState({})
   const [noteDraft, setNoteDraft] = useState({})
+  const [confirmEl, confirm] = useConfirm()
 
   const load = async () => {
     const { data } = await supabase.from('messages').select('*').order('created_at', { ascending: false })
@@ -50,7 +52,8 @@ export default function Messages() {
 
   const bulkDelete = async () => {
     if (!hasSelection) return
-    if (!confirm(`Delete ${selected.size} message${selected.size > 1 ? 's' : ''}?`)) return
+    const ok = await confirm(`Delete ${selected.size} message${selected.size > 1 ? 's' : ''}?`)
+    if (!ok) return
     const ids = [...selected]
     await supabase.from('messages').delete().in('id', ids)
     setMessages(prev => prev.filter(m => !ids.includes(m.id)))
@@ -81,6 +84,7 @@ export default function Messages() {
 
   return (
     <div className="admin-page">
+      {confirmEl}
       <div className="admin-page__header">
         <div>
           <h1 className="admin-page__title">Messages</h1>
