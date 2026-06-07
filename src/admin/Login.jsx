@@ -53,6 +53,7 @@ export default function Login() {
             {loading ? 'Signing in…' : 'Sign in'}
           </button>
         </form>
+        <a href="/" className="admin-login__back">← Back to Portfolio</a>
       </div>
     </div>
   )

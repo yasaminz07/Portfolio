@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
+import { IconCode, IconUsers, IconGradCap, IconTrophy, IconCpu, IconMail } from '../components/Icons'
 
 const TABLES = [
-  { key: 'projects',     label: 'Projects',      icon: '◈', route: '/admin/projects' },
-  { key: 'experience',   label: 'Experience',    icon: '◉', route: '/admin/experience' },
-  { key: 'education',    label: 'Education',     icon: '◎', route: '/admin/education' },
-  { key: 'certificates', label: 'Certificates',  icon: '◆', route: '/admin/certificates' },
-  { key: 'skills',       label: 'Skills',        icon: '◇', route: '/admin/skills' },
+  { key: 'projects',     label: 'Projects',      Icon: IconCode,     route: '/admin/projects' },
+  { key: 'experience',   label: 'Experience',    Icon: IconUsers,    route: '/admin/experience' },
+  { key: 'education',    label: 'Education',     Icon: IconGradCap,  route: '/admin/education' },
+  { key: 'certificates', label: 'Certificates',  Icon: IconTrophy,   route: '/admin/certificates' },
+  { key: 'skills',       label: 'Skills',        Icon: IconCpu,      route: '/admin/skills' },
 ]
 
 export default function Dashboard() {
@@ -58,13 +59,13 @@ export default function Dashboard() {
       <div className="admin-stats">
         {TABLES.map(t => (
           <button key={t.key} className="admin-stat-card" onClick={() => navigate(t.route)}>
-            <span className="admin-stat-card__icon">{t.icon}</span>
+            <span className="admin-stat-card__icon"><t.Icon size={22} /></span>
             <span className="admin-stat-card__count">{counts[t.key] ?? '—'}</span>
             <span className="admin-stat-card__label">{t.label}</span>
           </button>
         ))}
         <button className="admin-stat-card admin-stat-card--messages" onClick={() => navigate('/admin/messages')}>
-          <span className="admin-stat-card__icon">✉</span>
+          <span className="admin-stat-card__icon"><IconMail size={22} /></span>
           <span className="admin-stat-card__count">{unread}</span>
           <span className="admin-stat-card__label">Unread Messages</span>
         </button>
