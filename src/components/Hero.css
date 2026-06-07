@@ -1,0 +1,351 @@
+/* ─────────────────────────────────────────────────────────────── */
+/* Hero — Editorial centered, Centauri-inspired                  */
+/* ─────────────────────────────────────────────────────────────── */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(120px, 15vh, 165px) 0 0;
+  position: relative;
+  scroll-margin-top: 0;
+  overflow: hidden;
+  background: var(--bg-main);
+  text-align: center;
+}
+
+/* ── Background orbs ──────────────────────────────────────────── */
+.hero__orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+}
+.hero__orb--1 {
+  width: 900px; height: 900px;
+  top: -320px; right: -280px;
+  background: radial-gradient(circle, rgba(224,123,0,0.04) 0%, transparent 65%);
+  filter: blur(100px);
+  animation: orbDrift 16s ease-in-out infinite;
+}
+.hero__orb--2 {
+  width: 700px; height: 700px;
+  bottom: -260px; left: -220px;
+  background: radial-gradient(circle, rgba(0,102,204,0.04) 0%, transparent 65%);
+  filter: blur(100px);
+  animation: orbDrift 20s ease-in-out infinite reverse;
+}
+@keyframes orbDrift {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33%     { transform: translate(30px,-20px) scale(1.03); }
+  66%     { transform: translate(-15px,28px) scale(0.97); }
+}
+
+/* ── Inner wrapper ────────────────────────────────────────────── */
+.hero__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+/* ⚠️ hero--loaded on this same element */
+.hero__inner.hero--loaded { opacity: 1; }
+
+/* Staggered child entrance */
+.hero__inner.hero--loaded > * {
+  opacity: 0;
+  transform: translateY(22px);
+  animation: heroReveal 0.9s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+.hero__inner.hero--loaded > *:nth-child(1) { animation-delay: 0.04s; }
+.hero__inner.hero--loaded > *:nth-child(2) { animation-delay: 0.12s; }
+.hero__inner.hero--loaded > *:nth-child(3) { animation-delay: 0.19s; }
+.hero__inner.hero--loaded > *:nth-child(4) { animation-delay: 0.26s; }
+.hero__inner.hero--loaded > *:nth-child(5) { animation-delay: 0.33s; }
+.hero__inner.hero--loaded > *:nth-child(6) { animation-delay: 0.40s; }
+.hero__inner.hero--loaded > *:nth-child(7) { animation-delay: 0.47s; }
+@keyframes heroReveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Eyebrow ──────────────────────────────────────────────────── */
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 18px;
+  border-radius: var(--radius-full);
+  background: rgba(26,175,93,0.08);
+  border: 1px solid rgba(26,175,93,0.22);
+  color: #157A42;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: clamp(16px, 2.5vh, 40px);
+}
+/* ── Role subtitle (below eyebrow pill) ─────────────────── */
+.hero__role {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+.hero__role-link {
+  color: var(--secondary);
+  text-decoration: underline;
+  text-decoration-color: rgba(0,0,0,0.22);
+  text-underline-offset: 2px;
+  transition: color var(--transition-fast);
+}
+.hero__role-link:hover { color: var(--body); }
+
+.hero__dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #1AAF5D;
+  flex-shrink: 0;
+  animation: dotPulse 2.4s ease-in-out infinite;
+}
+@keyframes dotPulse {
+  0%,100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(26,175,93,0.4); }
+  50%     { opacity: 0.75; transform: scale(0.82); box-shadow: 0 0 0 5px rgba(26,175,93,0); }
+}
+
+/* ── Name — refined label, NOT competing with the cycling word ── */
+.hero__name {
+  font-size: clamp(28px, 3.6vw, 48px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--body);
+  line-height: 1;
+  margin: 0;
+}
+
+/* ── Editorial rule ───────────────────────────────────────────── */
+.hero__rule {
+  width: min(680px, 90%);
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.10) 20%, rgba(0,0,0,0.10) 80%, transparent 100%);
+  margin: clamp(14px, 2.5vh, 32px) 0;
+  flex-shrink: 0;
+}
+
+/* ── Cycling statement ────────────────────────────────────────── */
+.hero__statement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+}
+
+.hero__stmt-pre {
+  font-size: clamp(11px, 1.4vw, 16px);
+  font-weight: 700;
+  color: var(--body);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* Clip only vertically — negative horizontal inset lets the full word width show */
+.hero__stmt-word-wrap {
+  display: block;
+  clip-path: inset(0.06em -100vw);
+  padding: 0.06em 0;
+}
+
+/* The cycling word — visual hero of the page */
+.hero__stmt-word {
+  font-size: clamp(40px, min(12.5vw, 16vh), 168px);
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  line-height: 0.88;
+  display: block;
+  animation: cycleUp 0.5s cubic-bezier(0.22,1,0.36,1) both;
+  will-change: transform, opacity;
+}
+
+/* Exit — slides up and out */
+.hero__stmt-word--exit {
+  animation: cycleUpExit 0.32s ease-in forwards !important;
+}
+
+/* 1. DEVELOPER — solid orange fill (default) */
+.hero__stmt-word--filled {
+  color: var(--wc);
+}
+
+/* 2. ENGINEER — hollow stroke, no fill */
+.hero__stmt-word--outline {
+  color: transparent;
+  -webkit-text-stroke: clamp(2px, 0.28vw, 4px) var(--wc);
+  paint-order: stroke fill;
+}
+
+/* 4. CREATOR — background-fill + thick stroke, letters spaced apart */
+.hero__stmt-word--outlined {
+  color: var(--bg-main);
+  -webkit-text-stroke: clamp(7px, 0.85vw, 12px) var(--wc);
+  paint-order: stroke fill;
+  letter-spacing: 0.08em;
+}
+
+/* 3. BUILDER — italic serif, different font entirely */
+.hero__stmt-word--serif {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 900;
+  color: var(--wc);
+  letter-spacing: -0.03em;
+}
+
+
+/* 5. INNOVATOR — wide tracked caps */
+.hero__stmt-word--wide {
+  color: var(--wc);
+  letter-spacing: 0.06em;
+}
+
+/* Fade up gently — small translate so mid-frame never shows a harsh partial word */
+@keyframes cycleUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cycleUpExit {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-18px); }
+}
+
+.hero__stmt-suf {
+  font-size: clamp(14px, 1.8vw, 22px);
+  font-weight: 700;
+  color: var(--body);
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+/* ── Body copy ────────────────────────────────────────────────── */
+.hero__body {
+  font-size: 16.5px;
+  line-height: 1.72;
+  color: var(--secondary);
+  max-width: 520px;
+  margin-bottom: clamp(16px, 2.2vh, 32px);
+  letter-spacing: -0.005em;
+}
+
+/* ── Actions ──────────────────────────────────────────────────── */
+.hero__actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: clamp(16px, 2.2vh, 32px);
+}
+
+/* Orange primary button to match orange theme */
+.hero__cta-main {
+  background: #E07B00 !important;
+  border-color: #E07B00 !important;
+  box-shadow: 0 4px 20px rgba(224,123,0,0.28) !important;
+}
+.hero__cta-main:hover {
+  background: #C96E00 !important;
+  border-color: #C96E00 !important;
+  box-shadow: 0 6px 28px rgba(224,123,0,0.36) !important;
+  transform: translateY(-2px);
+}
+
+/* ── Inline stats strip ───────────────────────────────────────── */
+.hero__stats {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.hero__stat-item {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.hero__stat-item strong {
+  color: var(--body);
+  font-weight: 700;
+}
+.hero__stat-sep {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.18);
+  flex-shrink: 0;
+}
+
+/* ── Marquee tech strip ───────────────────────────────────────── */
+.hero__marquee {
+  width: 100%;
+  overflow: hidden;
+  padding: 14px 0;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  margin-top: clamp(24px, 3.5vh, 60px);
+  position: relative;
+  z-index: 2;
+  -webkit-mask: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+          mask: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+.hero__marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 32s linear infinite;
+}
+@keyframes marqueeScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
+}
+.hero__marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 28px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  white-space: nowrap;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.hero__marquee-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: rgba(224,123,0,0.45);
+  flex-shrink: 0;
+}
+
+
+/* ── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .hero__stmt-word { font-size: 13vw; }
+  .hero__stmt-word--wide { font-size: 11vw; }
+  .hero__stmt-word--outlined { font-size: 11vw; }
+}
+
+@media (max-width: 768px) {
+  .hero { padding: 96px 0 0; }
+  .hero__eyebrow { margin-bottom: 16px; }
+  .hero__rule { margin: 14px 0; }
+  .hero__body { margin-bottom: 20px; }
+  .hero__actions { margin-bottom: 20px; }
+  .hero__marquee { margin-top: 24px; }
+}
+@media (max-width: 500px) {
+  .hero__stats { gap: 10px; }
+  .hero__stat-sep { display: none; }
+  .hero__scroll { display: none; }
+}

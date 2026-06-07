@@ -1,0 +1,231 @@
+.experience__header { margin-bottom: 48px; }
+
+.experience__list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 780px;
+  isolation: isolate;
+}
+
+/* Give regular cards an explicit base z-index so hover can beat them */
+.experience__item.glass-card {
+  position: relative;
+  z-index: 1;
+}
+
+.experience__item {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 28px 32px;
+}
+
+/* Left monogram block */
+.experience__monogram {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: #0D0D0D;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Body */
+.experience__item-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.experience__item-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.experience__company {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--body);
+  letter-spacing: -0.02em;
+  margin: 0 0 4px;
+}
+
+.experience__type {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Badges */
+.experience__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.experience__badge--upcoming {
+  background: rgba(26,175,93,0.08);
+  color: #157A42;
+  border: 1px solid rgba(26,175,93,0.20);
+}
+
+.experience__badge--current {
+  background: rgba(224,123,0,0.08);
+  color: #C96E00;
+  border: 1px solid rgba(224,123,0,0.20);
+}
+
+.experience__badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #1AAF5D;
+  animation: dotPulse 2.4s ease-in-out infinite;
+}
+
+.experience__badge-dot--current {
+  background: #E07B00;
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.75); }
+}
+
+/* Meta row */
+.experience__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--secondary);
+  font-weight: 500;
+}
+
+.experience__sep { color: var(--muted); }
+
+.experience__desc {
+  font-size: 14px;
+  color: var(--secondary);
+  line-height: 1.68;
+  margin: 0;
+  max-width: 560px;
+}
+
+/* ── Innovation Labs floating photos ─────────────────────── */
+.experience__il-wrap {
+  position: relative;
+  z-index: 0;
+}
+
+.experience__il-wrap:hover {
+  z-index: 20;
+}
+
+.experience__item--il {
+  position: relative;
+  z-index: 3;
+}
+
+.experience__float-photos {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+/* Each photo */
+.experience__photo {
+  position: absolute;
+  width: 124px;
+  height: 94px;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: rotate(var(--rot, 0deg));
+  transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1);
+  -webkit-mask-image: radial-gradient(ellipse 88% 84% at center, black 30%, transparent 96%);
+  mask-image: radial-gradient(ellipse 88% 84% at center, black 30%, transparent 96%);
+  will-change: transform, opacity;
+}
+
+/* Reveal + float on hover */
+.experience__il-wrap:hover .experience__photo {
+  opacity: 1;
+  animation: photoFloat var(--float-dur, 3.5s) ease-in-out infinite;
+}
+
+@keyframes photoFloat {
+  0%, 100% { transform: rotate(var(--rot, 0deg)) translateY(0px); }
+  50%       { transform: rotate(var(--rot, 0deg)) translateY(calc(var(--float-amp, 10px) * -1)); }
+}
+
+.experience__item-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Hover hint tag — inline next to Current badge */
+.experience__hover-hint {
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px 5px 10px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.09);
+  border-radius: var(--radius-full);
+  color: var(--body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 14px rgba(0,0,0,0.05);
+  pointer-events: none;
+  user-select: none;
+  opacity: 1;
+  transition: opacity 0.35s ease;
+}
+
+.experience__hover-hint svg {
+  color: #E07B00;
+  animation: iconBounce 1.8s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes iconBounce {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-2px); }
+}
+
+.experience__il-wrap:hover .experience__hover-hint {
+  opacity: 0;
+}
+
+@media (max-width: 600px) {
+  .experience__item { padding: 20px; gap: 16px; }
+  .experience__item-top { flex-direction: column; gap: 10px; }
+  .experience__monogram { width: 44px; height: 44px; font-size: 11px; }
+  .experience__float-photos { display: none; }
+}
