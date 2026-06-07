@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="container footer__inner">
         <p className="footer__copy">
-          Yasamin Zaid &copy; 2026 — All rights reserved
+          &copy; 2026 Yasamin Zaid
         </p>
         <div className="footer__links">
           <a href="https://github.com/yasaminz07" target="_blank" rel="noopener noreferrer" className="footer__link" aria-label="GitHub">

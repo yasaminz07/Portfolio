@@ -25,7 +25,7 @@ const experiences = [
     period: "Present",
     status: "current",
     description:
-      "Building and contributing to innovative software projects alongside students, academics, and industry partners. Developing real digital solutions to real challenges, while managing media content — photography, videography, and social — to showcase the work coming out of the programme.",
+      "Building and contributing to innovative software projects alongside students, academics, and industry partners. Developing real digital solutions to real challenges, while managing media content including photography, videography and social to showcase the work coming out of the programme.",
   },
   {
     id: "bctsa",

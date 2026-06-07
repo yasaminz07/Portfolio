@@ -35,7 +35,7 @@ const experiences = [
     Icon: IconTrophy,
     org: 'BCU Innovation Fest',
     role: 'Team Lead',
-    body: "Led a team project during BCU's Innovation Fest, taking responsibility for both the technical direction and the team's output. We placed 2nd out of all competing teams — a result that came from strong collaboration, clear communication, and everyone delivering under pressure.",
+    body: "Led a team project during BCU's Innovation Fest, taking responsibility for both the technical direction and the team's output. We placed 2nd out of all competing teams, a result that came from strong collaboration, clear communication, and everyone delivering under pressure.",
     badge: '🥈 2nd Place · Innovation Fest',
   },
 ]

@@ -82,7 +82,7 @@ export default function Hero() {
         {/* Bio */}
         <p className="hero__body">
           Second-year Computer Science student at Birmingham City University.
-          I build real things — not just assignments. Team-focused,
+          I build real things, not just assignments. Team-focused,
           problem-driven, and always shipping.
         </p>
 

@@ -44,7 +44,7 @@ export default function Contact() {
             <h2 className="section-heading">Let's connect.</h2>
             <h3 className="contact__sub-heading">Open to opportunities.</h3>
             <p className="contact__body">
-              Whether you're a recruiter, a potential collaborator, or just want to say hi —
+              Whether you're a recruiter, a potential collaborator, or just want to say hi,
               I'd love to hear from you. I'm currently looking for placements, internships,
               and part-time roles where I can contribute and keep growing.
             </p>
@@ -93,7 +93,7 @@ export default function Contact() {
                       <polyline points="9 12 11 14 15 10"/>
                     </svg>
                   </div>
-                  <p>Message sent — I'll get back to you soon.</p>
+                  <p>Message sent! I'll get back to you soon.</p>
                 </div>
               ) : (
                 <form className="contact__form" onSubmit={handleSubmit}>
