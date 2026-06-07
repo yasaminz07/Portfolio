@@ -1,0 +1,157 @@
+.education__header { margin-bottom: 48px; }
+
+.education__body { overflow: hidden; padding: 0; }
+
+.education__tabs {
+  display: flex;
+  border-bottom: 1px solid var(--divider);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.education__tabs::-webkit-scrollbar { display: none; }
+
+.education__tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 18px 32px;
+  background: none; border: none;
+  cursor: pointer;
+  font-family: var(--font);
+  transition: all var(--transition-fast);
+  position: relative;
+  flex-shrink: 0;
+  gap: 3px;
+}
+
+.education__tab::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0; right: 0;
+  height: 2px;
+  background: var(--body);
+  border-radius: 1px;
+  transform: scaleX(0);
+  transition: transform 0.25s cubic-bezier(0.25,0.1,0.25,1);
+}
+.education__tab--active::after { transform: scaleX(1); }
+
+.education__tab-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  transition: color var(--transition-fast);
+  letter-spacing: -0.01em;
+}
+.education__tab--active .education__tab-label { color: var(--body); }
+
+.education__tab-sub {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.education__content { padding: 36px 40px; }
+
+.education__period-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 36px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--divider);
+}
+
+.education__degree { display: flex; align-items: center; gap: 16px; }
+
+.education__degree-icon {
+  width: 50px; height: 50px;
+  border-radius: 13px;
+  background: rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--body);
+  flex-shrink: 0;
+}
+
+.education__degree-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--body);
+  letter-spacing: -0.02em;
+}
+
+.education__degree-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+.education__semesters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.education__semester { display: flex; flex-direction: column; gap: 14px; }
+
+.education__sem-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.education__modules {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.education__module {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--secondary);
+  line-height: 1.45;
+}
+
+.education__module-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--body);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.education__sem-badge { font-size: 12px; margin-top: 4px; align-self: flex-start; }
+
+.education__upcoming {
+  background: rgba(0,0,0,0.03);
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  text-align: center;
+}
+
+.education__upcoming p {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+@media (max-width: 720px) {
+  .education__content { padding: 24px 20px; }
+  .education__semesters { grid-template-columns: 1fr; gap: 28px; }
+  .education__tab { padding: 14px 20px; }
+}
