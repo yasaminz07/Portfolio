@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useReveal } from '../hooks/useReveal'
 import { IconMail, IconLinkedIn, IconGitHub, IconMapPin, IconArrowRight } from './Icons'
+import { supabase } from '../lib/supabase'
 import './Contact.css'
 
 const contactLinks = [
@@ -28,8 +29,13 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setStatus('sending')
-    await new Promise(r => setTimeout(r, 1400))
-    setStatus('sent')
+    const { error } = await supabase.from('messages').insert({
+      name: form.name,
+      email: form.email,
+      subject: form.subject,
+      message: form.message,
+    })
+    setStatus(error ? 'error' : 'sent')
   }
 
   return (
@@ -85,7 +91,11 @@ export default function Contact() {
             <div className="contact__form-card glass-card">
               <h3 className="contact__form-title">Send me a message</h3>
 
-              {status === 'sent' ? (
+              {status === 'error' ? (
+                <div className="contact__success">
+                  <p style={{ color: '#e53e3e' }}>Something went wrong. Please try again or email me directly.</p>
+                </div>
+              ) : status === 'sent' ? (
                 <div className="contact__success">
                   <div className="contact__success-icon">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#34D399" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

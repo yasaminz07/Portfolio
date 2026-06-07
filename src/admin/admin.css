@@ -322,7 +322,120 @@
 
 .admin-message-card__meta { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .admin-message-card__date { font-size: 11px; color: #aaa; }
+.admin-message-card__subject { font-size: 12px; font-weight: 600; color: #888; margin: 6px 0 4px; }
 .admin-message-card__body { font-size: 13px; color: #555; line-height: 1.6; margin: 0; }
+
+.admin-msg-star {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s, transform 0.15s;
+  flex-shrink: 0;
+}
+.admin-msg-star:hover { transform: scale(1.2); }
+
+.admin-msg-status-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* Bulk action bar */
+.admin-bulk-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: #fff;
+  border: 1px solid #e8e8e6;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.admin-bulk-bar__count {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0D0D0D;
+  white-space: nowrap;
+  margin-right: 4px;
+}
+.admin-bulk-bar__hint {
+  font-size: 12px;
+  color: #aaa;
+  white-space: nowrap;
+  margin-right: 4px;
+}
+.admin-bulk-bar__cancel {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+  line-height: 1;
+  transition: color 0.15s;
+  margin-left: auto;
+}
+.admin-bulk-bar__cancel:hover { color: #0D0D0D; }
+.admin-bulk-bar__actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+.admin-bulk-bar .admin-btn--xs {
+  background: #f5f5f3;
+  color: #444;
+  border: 1px solid #e0e0e0;
+}
+.admin-bulk-bar .admin-btn--xs:hover:not(:disabled) { background: #ebebea; color: #0D0D0D; }
+.admin-bulk-bar .admin-btn--xs:disabled { opacity: 0.4; cursor: not-allowed; }
+.admin-bulk-bar .admin-btn--danger { background: rgba(220,38,38,0.07) !important; color: #dc2626 !important; border-color: rgba(220,38,38,0.15) !important; }
+.admin-bulk-bar .admin-btn--danger:hover:not(:disabled) { background: rgba(220,38,38,0.14) !important; }
+
+/* Message card layout */
+.admin-message-card {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.admin-msg-card-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding-top: 2px;
+  flex-shrink: 0;
+}
+.admin-msg-card-body { flex: 1; min-width: 0; }
+.admin-msg-check { width: 15px; height: 15px; cursor: pointer; accent-color: #0D0D0D; }
+
+.admin-message-card--selected {
+  background: rgba(0,102,204,0.04) !important;
+  border-color: rgba(0,102,204,0.2) !important;
+}
+
+/* Select all row */
+.admin-msg-select-all {
+  padding: 4px 0 8px;
+}
+.admin-msg-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #888;
+  cursor: pointer;
+  user-select: none;
+}
+.admin-msg-checkbox input { width: 14px; height: 14px; accent-color: #0D0D0D; cursor: pointer; }
 
 /* ── Buttons ────────────────────────────────────────────────── */
 .admin-btn {
@@ -573,3 +686,99 @@
 }
 
 .admin-login__form { text-align: left; }
+
+/* ── Per-message action buttons ─────────────────────────────── */
+.admin-msg-actions {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-top: 12px;
+  border-top: 1px solid #f0f0ee;
+  padding-top: 10px;
+}
+
+.admin-msg-actions__sep {
+  width: 1px;
+  height: 16px;
+  background: #e0e0de;
+  margin: 0 10px;
+  flex-shrink: 0;
+}
+
+.admin-msg-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 4px 0;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: color 0.15s;
+}
+
+.admin-msg-action-btn--responded { color: #aaa; }
+.admin-msg-action-btn--responded:hover { color: #157A42; }
+.admin-msg-action-btn--responded.active { color: #157A42; }
+
+.admin-msg-action-btn--ignored { color: #aaa; }
+.admin-msg-action-btn--ignored:hover { color: #888; }
+.admin-msg-action-btn--ignored.active { color: #888; }
+
+/* ── Message notes ──────────────────────────────────────────── */
+.admin-msg-note {
+  margin-top: 12px;
+  border-top: 1px solid #f5f5f5;
+  padding-top: 10px;
+}
+
+.admin-msg-note__toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 12px;
+  color: #aaa;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s;
+  text-align: left;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.admin-msg-note__toggle:hover { color: #555; }
+
+.admin-msg-note__dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #E07B00;
+  flex-shrink: 0;
+}
+
+.admin-msg-note__editor {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-msg-note__input {
+  font-size: 12px;
+  padding: 8px 10px;
+  min-height: 64px;
+  resize: vertical;
+  background: #fafaf8;
+  border-color: #e0e0e0;
+}
+
+.admin-msg-note__footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
