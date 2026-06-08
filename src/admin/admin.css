@@ -1046,10 +1046,11 @@
 
   /* Login page */
   .admin-login {
+    position: fixed;
+    inset: 0;
     align-items: flex-end;
     padding: 0;
     background: #f5f5f3;
-    height: 100dvh;
     overflow: hidden;
   }
 
