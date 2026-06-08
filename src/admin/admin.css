@@ -1056,7 +1056,7 @@
 
   .admin-login__card {
     border-radius: 28px 28px 0 0;
-    padding: 36px 24px 56px;
+    padding: 36px 24px 100px;
     max-width: 100%;
     max-height: 92dvh;
     overflow-y: auto;
