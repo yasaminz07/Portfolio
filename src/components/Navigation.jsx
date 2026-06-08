@@ -48,7 +48,7 @@ export default function Navigation() {
   }
 
   return (
-    <nav className={`nav ${scrolled ? 'nav--scrolled' : ''}`}>
+    <nav className={`nav ${scrolled ? 'nav--scrolled' : ''} ${menuOpen ? 'nav--menu-open' : ''}`}>
       <div className="nav__inner container">
         <a className="nav__logo" href="#home" onClick={e => handleLink(e, '#home')}>
           <span className="nav__logo-mark">Y</span>

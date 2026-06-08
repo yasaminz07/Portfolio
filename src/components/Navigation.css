@@ -156,10 +156,24 @@
   .nav__links, .nav__cta { display: none; }
   .nav__burger { display: flex; }
   .nav__mobile { display: block; }
-  .nav--scrolled .nav__mobile--open {
-    background: rgba(246,246,243,0.96);
-    backdrop-filter: blur(20px);
+
+  .nav--menu-open .nav__inner {
+    background: rgba(246,246,243,0.97);
+    backdrop-filter: saturate(180%) blur(24px);
+    -webkit-backdrop-filter: saturate(180%) blur(24px);
+    border: 1px solid rgba(255,255,255,0.70);
+    border-bottom: none;
+    border-radius: 32px 32px 0 0;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04);
+  }
+
+  .nav__mobile--open {
+    background: rgba(246,246,243,0.97);
+    backdrop-filter: saturate(180%) blur(24px);
+    -webkit-backdrop-filter: saturate(180%) blur(24px);
+    border: 1px solid rgba(255,255,255,0.70);
     border-top: 1px solid rgba(0,0,0,0.06);
     border-radius: 0 0 32px 32px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.07);
   }
 }
