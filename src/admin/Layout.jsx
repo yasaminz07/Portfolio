@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { useUnreadCount } from './hooks/useUnreadCount'
@@ -16,18 +17,43 @@ const navItems = [
 export default function Layout({ session, children }) {
   const navigate = useNavigate()
   const unread = useUnreadCount()
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const signOut = async () => {
     await supabase.auth.signOut()
     navigate('/admin/login')
   }
 
+  const close = () => setSidebarOpen(false)
+
   return (
     <div className="admin-root">
-      <aside className="admin-sidebar">
+
+      {/* Mobile top bar */}
+      <header className="admin-topbar">
+        <button className="admin-topbar__burger" onClick={() => setSidebarOpen(v => !v)} aria-label="Open menu">
+          <span /><span /><span />
+        </button>
+        <span className="admin-topbar__brand">
+          <span className="admin-sidebar__mark" style={{ width: 26, height: 26, fontSize: 12 }}>Y</span>
+          Admin
+        </span>
+        {unread > 0 && (
+          <button className="admin-topbar__msg" onClick={() => { navigate('/admin/messages'); close() }}>
+            <IconMail size={18} />
+            <span className="admin-nav__badge">{unread}</span>
+          </button>
+        )}
+      </header>
+
+      {/* Sidebar overlay */}
+      {sidebarOpen && <div className="admin-sidebar-overlay" onClick={close} />}
+
+      <aside className={`admin-sidebar ${sidebarOpen ? 'admin-sidebar--open' : ''}`}>
         <div className="admin-sidebar__brand">
           <span className="admin-sidebar__mark">Y</span>
           <span className="admin-sidebar__name">Admin</span>
+          <button className="admin-sidebar__close" onClick={close} aria-label="Close menu">✕</button>
         </div>
 
         <nav className="admin-nav">
@@ -35,6 +61,7 @@ export default function Layout({ session, children }) {
             <NavLink
               key={item.to}
               to={item.to}
+              onClick={close}
               className={({ isActive }) => `admin-nav__link ${isActive ? 'admin-nav__link--active' : ''}`}
             >
               <span className="admin-nav__icon"><item.Icon size={17} /></span>
@@ -54,9 +81,7 @@ export default function Layout({ session, children }) {
           <div className="admin-sidebar__user">
             <span className="admin-sidebar__email">{session.user.email}</span>
           </div>
-          <button className="admin-sidebar__signout" onClick={signOut}>
-            Sign out
-          </button>
+          <button className="admin-sidebar__signout" onClick={signOut}>Sign out</button>
         </div>
       </aside>
 

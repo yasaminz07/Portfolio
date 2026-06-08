@@ -846,3 +846,235 @@
   align-items: center;
   gap: 8px;
 }
+
+/* ── Mobile top bar ─────────────────────────────────────────── */
+.admin-topbar {
+  display: none;
+}
+
+/* ── Sidebar close button (mobile only) ─────────────────────── */
+.admin-sidebar__close {
+  display: none;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.5);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+  margin-left: auto;
+  line-height: 1;
+  transition: color 0.15s;
+}
+.admin-sidebar__close:hover { color: #fff; }
+
+/* ── Mobile overlay ─────────────────────────────────────────── */
+.admin-sidebar-overlay {
+  display: none;
+}
+
+/* ── Mobile responsive ──────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Top bar */
+  .admin-topbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 54px;
+    background: #0D0D0D;
+    padding: 0 16px;
+    z-index: 60;
+  }
+
+  .admin-topbar__burger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 6px;
+  }
+  .admin-topbar__burger span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 1px;
+  }
+  .admin-topbar__burger:hover span { background: #fff; }
+
+  .admin-topbar__brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.02em;
+  }
+
+  .admin-topbar__msg {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    position: relative;
+    padding: 6px;
+  }
+
+  /* Sidebar becomes a drawer */
+  .admin-sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.25s cubic-bezier(0.25,0.1,0.25,1);
+    z-index: 70;
+  }
+
+  .admin-sidebar--open {
+    transform: translateX(0);
+  }
+
+  .admin-sidebar__close {
+    display: block;
+  }
+
+  /* Overlay */
+  .admin-sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 65;
+    animation: fadeIn 0.2s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* Main content */
+  .admin-main {
+    margin-left: 0;
+    padding: 80px 16px 32px;
+  }
+
+  /* Stats grid: 2 columns */
+  .admin-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .admin-stat-card {
+    padding: 16px 12px;
+  }
+
+  .admin-stat-card__count { font-size: 22px; }
+
+  /* Page header */
+  .admin-page__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .admin-filter-group {
+    flex-wrap: wrap;
+  }
+
+  /* Tables: horizontal scroll */
+  .admin-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Bulk bar: wrap */
+  .admin-bulk-bar {
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .admin-bulk-bar__actions {
+    gap: 4px;
+  }
+
+  /* Message cards */
+  .admin-message-card {
+    padding: 14px 14px;
+  }
+
+  .admin-message-card__top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .admin-message-card__meta {
+    flex-wrap: wrap;
+  }
+
+  /* Modal */
+  .admin-modal {
+    margin: 0 8px;
+  }
+
+  .admin-confirm-modal {
+    max-width: 100%;
+    margin: 0 16px;
+  }
+
+  /* Section */
+  .admin-section {
+    padding: 16px;
+  }
+
+  /* Form rows: single column */
+  .admin-form__row {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-page { max-width: 100%; }
+
+  /* Login page */
+  .admin-login {
+    align-items: flex-end;
+    padding: 0;
+    background: #f5f5f3;
+  }
+
+  .admin-login__card {
+    border-radius: 28px 28px 0 0;
+    padding: 36px 24px 36px;
+    max-width: 100%;
+    box-shadow: 0 -4px 40px rgba(0,0,0,0.10);
+  }
+
+  .admin-login__logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+  }
+
+  .admin-login__mark { font-size: 18px; }
+
+  .admin-login__title { font-size: 20px; }
+
+  .admin-input {
+    padding: 11px 12px;
+    font-size: 16px; /* prevents iOS zoom */
+  }
+
+  .admin-btn--full { padding: 13px; font-size: 15px; }
+
+  .admin-login__back { margin-top: 24px; }
+}
