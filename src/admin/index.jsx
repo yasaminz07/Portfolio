@@ -11,6 +11,7 @@ import Education from './pages/Education'
 import Certificates from './pages/Certificates'
 import Skills from './pages/Skills'
 import './admin.css'
+import './admin-theme.css'
 
 function ProtectedRoute({ session, children }) {
   if (!session) return <Navigate to="/admin/login" replace />

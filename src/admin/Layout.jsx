@@ -35,7 +35,7 @@ export default function Layout({ session, children }) {
           <span /><span /><span />
         </button>
         <span className="admin-topbar__brand">
-          <span className="admin-sidebar__mark" style={{ width: 26, height: 26, fontSize: 12 }}>Y</span>
+          <span className="admin-sidebar__mark admin-brand-name admin-brand-name--compact">Yasamin</span>
           Admin
         </span>
         {unread > 0 && (
@@ -51,7 +51,7 @@ export default function Layout({ session, children }) {
 
       <aside className={`admin-sidebar ${sidebarOpen ? 'admin-sidebar--open' : ''}`}>
         <div className="admin-sidebar__brand">
-          <span className="admin-sidebar__mark">Y</span>
+          <span className="admin-sidebar__mark admin-brand-name">Yasamin</span>
           <span className="admin-sidebar__name">Admin</span>
           <button className="admin-sidebar__close" onClick={close} aria-label="Close menu">✕</button>
         </div>

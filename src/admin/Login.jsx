@@ -25,7 +25,7 @@ export default function Login() {
     <div className="admin-login">
       <div className="admin-login__card">
         <div className="admin-login__logo">
-          <span className="admin-login__mark">Y</span>
+          <span className="admin-login__mark admin-brand-name">Yasamin</span>
         </div>
         <h1 className="admin-login__title">Admin Panel</h1>
         <p className="admin-login__sub">Sign in to manage your portfolio</p>
@@ -38,7 +38,7 @@ export default function Login() {
               type="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              placeholder="your@email.com"
+              placeholder=""
               required
             />
           </div>
@@ -49,7 +49,7 @@ export default function Login() {
               type="password"
               value={password}
               onChange={e => setPassword(e.target.value)}
-              placeholder="••••••••"
+              placeholder=""
               required
             />
           </div>

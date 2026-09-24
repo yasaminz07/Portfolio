@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useReveal } from '../hooks/useReveal'
 import { IconMail, IconLinkedIn, IconGitHub, IconMapPin, IconArrowRight } from './Icons'
 import { supabase } from '../lib/supabase'
@@ -21,13 +21,24 @@ const subjectOptions = [
 
 export default function Contact() {
   const ref = useReveal(0.1)
+  const subjectRef = useRef(null)
   const [form,   setForm]   = useState({ name:'', email:'', subject:'', message:'' })
   const [status, setStatus] = useState('idle')
+  const [subjectOpen, setSubjectOpen] = useState(false)
 
   const handleChange = (e) => setForm(p => ({ ...p, [e.target.name]: e.target.value }))
 
+  useEffect(() => {
+    const closeDropdown = event => {
+      if (!subjectRef.current?.contains(event.target)) setSubjectOpen(false)
+    }
+    document.addEventListener('pointerdown', closeDropdown)
+    return () => document.removeEventListener('pointerdown', closeDropdown)
+  }, [])
+
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (!form.subject) { setSubjectOpen(true); return }
     setStatus('sending')
     const { error } = await supabase.from('messages').insert({
       name: form.name,
@@ -111,27 +122,52 @@ export default function Contact() {
                     <div className="contact__field">
                       <label className="contact__label" htmlFor="name">Your Name</label>
                       <input id="name" name="name" type="text" className="contact__input"
-                        placeholder="Jane Smith" value={form.name} onChange={handleChange} required />
+                        placeholder="Full name" value={form.name} onChange={handleChange} required />
                     </div>
                     <div className="contact__field">
-                      <label className="contact__label" htmlFor="email">Email Address</label>
+                      <label className="contact__label" htmlFor="email">Email</label>
                       <input id="email" name="email" type="email" className="contact__input"
-                        placeholder="jane@company.com" value={form.email} onChange={handleChange} required />
+                        aria-label="Email address" placeholder="Email address" value={form.email} onChange={handleChange} required />
                     </div>
                   </div>
 
                   <div className="contact__field">
                     <label className="contact__label" htmlFor="subject">Subject</label>
-                    <div className="contact__select-wrap">
-                      <select id="subject" name="subject" className="contact__select"
-                        value={form.subject} onChange={handleChange} required>
-                        {subjectOptions.map(o => (
-                          <option key={o.value} value={o.value} disabled={o.value === ''}>{o.label}</option>
-                        ))}
-                      </select>
+                    <div className={`contact__select-wrap ${subjectOpen ? 'contact__select-wrap--open' : ''}`} ref={subjectRef}>
+                      <button
+                        id="subject"
+                        type="button"
+                        className={`contact__select ${!form.subject ? 'contact__select--placeholder' : ''}`}
+                        aria-haspopup="listbox"
+                        aria-expanded={subjectOpen}
+                        onClick={() => setSubjectOpen(open => !open)}
+                        onKeyDown={event => { if (event.key === 'Escape') setSubjectOpen(false) }}
+                      >
+                        {subjectOptions.find(option => option.value === form.subject)?.label || subjectOptions[0].label}
+                      </button>
                       <svg className="contact__select-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none">
                         <path d="M3 5l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
+                      {subjectOpen && (
+                        <div className="contact__select-menu" role="listbox" aria-labelledby="subject">
+                          {subjectOptions.filter(option => option.value).map(option => (
+                            <button
+                              type="button"
+                              role="option"
+                              aria-selected={form.subject === option.value}
+                              className={`contact__select-option ${form.subject === option.value ? 'contact__select-option--selected' : ''}`}
+                              key={option.value}
+                              onClick={() => {
+                                setForm(current => ({ ...current, subject: option.value }))
+                                setSubjectOpen(false)
+                              }}
+                            >
+                              <span>{option.label}</span>
+                              {form.subject === option.value && <span className="contact__select-check">✓</span>}
+                            </button>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
 
