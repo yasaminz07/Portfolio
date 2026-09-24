@@ -1,4 +1,5 @@
 import { useReveal } from "../hooks/useReveal";
+import { usePortfolioData } from "../hooks/usePortfolioData";
 import "./Experience.css";
 
 const imageModules = import.meta.glob("/images/*.{jpg,jpeg,png,JPG,JPEG,PNG}", {
@@ -6,7 +7,7 @@ const imageModules = import.meta.glob("/images/*.{jpg,jpeg,png,JPG,JPEG,PNG}", {
 });
 const workshopImages = Object.values(imageModules).map((m) => m.default);
 
-const experiences = [
+const fallbackExperiences = [
   {
     id: "sca",
     company: "BCU Student Computing Association",
@@ -120,8 +121,21 @@ function CardInner({ p, showHint }) {
   );
 }
 
+function isInnovationLabsExperience(experience) {
+  const company = experience.company?.trim().toLowerCase() || "";
+  const shortName = experience.shortName?.trim().toLowerCase() || "";
+
+  return experience.id === "innovation-labs"
+    || company.includes("innovation labs")
+    || shortName === "il";
+}
+
 export default function Experience() {
   const ref = useReveal(0.1);
+  const experiences = usePortfolioData("experience", fallbackExperiences).map((row) => ({
+    ...row,
+    shortName: row.short_name ?? row.shortName ?? "",
+  }));
 
   return (
     <section id="experience" className="section experience" ref={ref}>
@@ -135,7 +149,7 @@ export default function Experience() {
 
         <div className="experience__list">
           {experiences.map((p, i) => {
-            if (p.id === "innovation-labs") {
+            if (isInnovationLabsExperience(p)) {
               return (
                 <div
                   key={p.id}

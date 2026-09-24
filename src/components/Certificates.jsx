@@ -1,11 +1,13 @@
 import { useReveal } from '../hooks/useReveal'
+import { usePortfolioData } from '../hooks/usePortfolioData'
+import * as Icons from './Icons'
 import {
   IconLock, IconUserX, IconCloud, IconTerminal, IconKey,
   IconActivity, IconSearch, IconCode, IconWifi, IconShield,
 } from './Icons'
 import './Certificates.css'
 
-const certs = [
+const fallbackCerts = [
   { Icon: IconLock,     title: 'OAuth 2.0 & Token Security',                    issuer: 'SecSim & BCU – MSc Cybersecurity', date: 'Mar 2026', body: 'Covered authentication, token-based security, and modern access control concepts used in secure systems.' },
   { Icon: IconUserX,    title: 'RBAC & Access Control Bypass',                   issuer: 'SecSim & BCU – MSc Cybersecurity', date: 'Mar 2026', body: 'Focused on role-based access control, security weaknesses, and how broken access rules can lead to vulnerabilities.' },
   { Icon: IconCloud,    title: 'Cloud Security Misconfigurations',                issuer: 'SecSim & BCU – MSc Cybersecurity', date: 'Mar 2026', body: 'Explored common cloud security mistakes, misconfigurations, and how they can expose systems and sensitive data.' },
@@ -19,6 +21,10 @@ const certs = [
 
 export default function Certificates() {
   const ref = useReveal(0.06)
+  const certs = usePortfolioData('certificates', fallbackCerts).map(cert => ({
+    ...cert,
+    Icon: Icons[cert.icon_name] || cert.Icon || IconShield,
+  }))
 
   return (
     <section id="certificates" className="section certificates" ref={ref}>

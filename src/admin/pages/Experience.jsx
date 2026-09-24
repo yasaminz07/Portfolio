@@ -68,7 +68,7 @@ export default function Experience() {
                 <td><strong>{r.company}</strong></td>
                 <td>{r.type}</td>
                 <td>{r.period}{r.duration ? ` · ${r.duration}` : ''}</td>
-                <td><span className={`admin-badge admin-badge--${r.status}`}>{r.status}</span></td>
+                <td><span className={`admin-badge admin-badge--${r.status}`}>{r.status === 'past' ? r.period : r.status}</span></td>
                 <td className="admin-table__actions">
                   <button className="admin-btn admin-btn--xs" onClick={() => openEdit(r)}>Edit</button>
                   <button className="admin-btn admin-btn--xs admin-btn--danger" onClick={() => del(r.id)}>Delete</button>
@@ -116,7 +116,7 @@ export default function Experience() {
                 <select className="admin-input" value={form.status} onChange={e => setForm(f => ({ ...f, status: e.target.value }))}>
                   <option value="current">Current</option>
                   <option value="upcoming">Upcoming</option>
-                  <option value="past">Past</option>
+                  <option value="past">Completed (show date range)</option>
                 </select>
               </div>
               <div className="admin-field">

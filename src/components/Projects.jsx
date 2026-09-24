@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { useReveal } from '../hooks/useReveal'
+import { usePortfolioData } from '../hooks/usePortfolioData'
+import * as Icons from './Icons'
 import { IconBuilding, IconGlobe, IconCheckSquare, IconGrid, IconPlay, IconLayers, IconGitHub, IconExternal } from './Icons'
 import './Projects.css'
 
-const projects = [
+const fallbackProjects = [
   {
     id: 'innovation-labs',
     featured: true,
@@ -74,6 +76,14 @@ const filters = ['All','Frontend','Full Stack','Design','Real Client']
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState('All')
   const ref = useReveal(0.08)
+  const projects = usePortfolioData('projects', fallbackProjects).map(p => ({
+    ...p,
+    Icon: Icons[p.icon_name] || p.Icon || Icons.IconCode,
+    realClient: p.real_client ?? p.realClient ?? false,
+    inProgress: p.in_progress ?? p.inProgress ?? false,
+    tags: p.tags || [],
+    links: p.links || [],
+  }))
 
   const filtered  = projects.filter(p =>
     activeFilter === 'All' ||

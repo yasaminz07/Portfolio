@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useReveal } from '../hooks/useReveal'
+import { usePortfolioData } from '../hooks/usePortfolioData'
 import { IconGradCap } from './Icons'
 import './Education.css'
 
-const years = [
+const fallbackYears = [
   {
     id: 'second', label: '2nd Year', sublabel: 'Current', period: '2025 / 2026', current: true,
     semesters: [
@@ -33,7 +34,22 @@ const years = [
 export default function Education() {
   const [active, setActive] = useState('second')
   const ref = useReveal(0.1)
-  const year = years.find(y => y.id === active)
+  const storedYears = usePortfolioData('education', fallbackYears)
+  const years = storedYears
+    .map((year, originalIndex) => ({ ...year, originalIndex }))
+    .sort((a, b) => {
+      if (a.current !== b.current) return a.current ? -1 : 1
+      const orderDifference = (a.sort_order ?? a.originalIndex) - (b.sort_order ?? b.originalIndex)
+      return orderDifference || a.originalIndex - b.originalIndex
+    })
+  const currentYearId = years.find(year => year.current)?.id
+  const year = years.find(y => y.id === active) || years[0]
+
+  useEffect(() => {
+    if (currentYearId) setActive(currentYearId)
+  }, [currentYearId])
+
+  if (!year) return null
 
   return (
     <section id="education" className="section education" ref={ref}>
@@ -53,7 +69,9 @@ export default function Education() {
                 onClick={() => setActive(y.id)}
               >
                 <span className="education__tab-label">{y.label}</span>
-                {y.sublabel && <span className="education__tab-sub">{y.sublabel}</span>}
+                {y.current
+                  ? <span className="education__tab-sub">Current</span>
+                  : y.sublabel && y.sublabel.toLowerCase() !== 'current' && <span className="education__tab-sub">{y.sublabel}</span>}
               </button>
             ))}
           </div>
@@ -70,7 +88,7 @@ export default function Education() {
                 </div>
               </div>
               {year.current && <span className="badge badge-green">Currently Enrolled</span>}
-              {year.upcoming && <span className="badge badge-accent"><span>🔭</span> Coming 2026/2027</span>}
+              {year.upcoming && <span className="badge badge-accent">Coming {year.period}</span>}
             </div>
 
             {year.upcoming ? (

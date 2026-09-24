@@ -1,8 +1,10 @@
 import { useReveal } from '../hooks/useReveal'
+import { usePortfolioData } from '../hooks/usePortfolioData'
+import * as Icons from './Icons'
 import { IconCode, IconServer, IconDatabase, IconTerminal, IconShield, IconCpu } from './Icons'
 import './Skills.css'
 
-const categories = [
+const fallbackCategories = [
   { Icon: IconCode,     title: 'Frontend Development', skills: ['HTML5','CSS3','JavaScript','React','Next.js','Responsive Design','Figma'],             accent: '#5B8FFF' },
   { Icon: IconServer,   title: 'Backend Development',  skills: ['Python','Java','PHP','Node.js','REST APIs','OOP'],                                       accent: '#9B78FF' },
   { Icon: IconDatabase, title: 'Databases & Data',     skills: ['SQL','MySQL','Database Design','Data Structures','Algorithms'],                           accent: '#38D4F7' },
@@ -13,6 +15,11 @@ const categories = [
 
 export default function Skills() {
   const ref = useReveal(0.08)
+  const categories = usePortfolioData('skills', fallbackCategories).map(cat => ({
+    ...cat,
+    Icon: Icons[cat.icon_name] || cat.Icon || IconCode,
+    skills: cat.items ?? cat.skills ?? [],
+  }))
 
   return (
     <section id="skills" className="section skills" ref={ref}>
